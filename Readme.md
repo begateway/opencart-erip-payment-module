@@ -1,11 +1,11 @@
 ## OpenCart payment module
 
-[Русская версия](#модуль-оплаты-opencart)
+[Русская версия](#Модуль-оплаты-opencart)
 
 ### Installation
 
 * Backup your webstore and database
-* Upload the module file [opencart-begateway-payment-module.ocmod.zip](opencart-payment-module/blob/master/opencart-payment-module.ocmod.zip?raw=true) via _Extensions_ -> _Extension Installer_
+* Upload the module file [opencart-begateway-payment-module.ocmod.zip](https://github.com/beGateway/opencart-payment-module/raw/master/opencart-payment-module.ocmod.zip) via _Extensions_ -> _Extension Installer_
 * Activate the module in payment extensions (_Extensions_ -> _Payments_)
 * Configure the module settings:
   * Shop Id
@@ -53,12 +53,12 @@ Issue pull requests or send feature requests.
 
 ## Модуль оплаты OpenCart
 
-[English version](#payment-module-opencart)
+[English version](#opencart-payment-module)
 
 ### Установка
 
 * Создайте резервную копию вашего магазина и базы данных
-* Загрузите файл модуля [opencart-begateway-payment-module.ocmod.zip](opencart-payment-module/blob/master/opencart-payment-module.ocmod.zip?raw=true) с помощью _Модули_ -> _Установка расширений_
+* Загрузите файл модуля [opencart-begateway-payment-module.ocmod.zip](https://github.com/beGateway/opencart-payment-module/raw/master/opencart-payment-module.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
 * Активируйте модуль beGateway в модулях оплаты (_Модули_ -> _Оплата_)
 * Задайте в настройках модуля beGateway:
   * Id магазина
