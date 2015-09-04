@@ -1,11 +1,13 @@
-## OpenCart payment module
+## OpenCart 1.5 payment module
 
-[Русская версия](#Модуль-оплаты-opencart)
+[Click here](https://github.com/beGateway/opencart-payment-module/) for OpenCart 2 payment module
+
+[Русская версия](#Модуль-оплаты-opencart-1.5)
 
 ### Installation
 
 * Backup your webstore and database
-* Upload the module file [opencart-begateway-payment-module.ocmod.zip](https://github.com/beGateway/opencart-payment-module/raw/master/opencart-payment-module.ocmod.zip) via _Extensions_ -> _Extension Installer_
+* Upload the module file [opencart-begateway-payment-module.zip](https://github.com/beGateway/opencart-payment-module/raw/opencart-1.5/opencart-begateway-payment-module.zip) via _Extensions_ -> _Extension Installer_
 * Activate the module in payment extensions (_Extensions_ -> _Payments_)
 * Configure the module settings:
   * Shop Id
@@ -19,7 +21,7 @@
 
 ### Notes
 
-Tested and developed with OpenCart v.2.0.1.1
+Tested and developed with OpenCart v.1.5.6.4
 
 ### Troubleshooting
 
@@ -51,14 +53,16 @@ Use the test data to make a test payment:
 
 Issue pull requests or send feature requests.
 
-## Модуль оплаты OpenCart
+## Модуль оплаты OpenCart 1.5
 
-[English version](#opencart-payment-module)
+Модуль для OpenCart 2 находиться [здесь](https://github.com/beGateway/opencart-payment-module/)
+
+[English version](#opencart-payment-module-1.5)
 
 ### Установка
 
 * Создайте резервную копию вашего магазина и базы данных
-* Загрузите файл модуля [opencart-begateway-payment-module.ocmod.zip](https://github.com/beGateway/opencart-payment-module/raw/master/opencart-payment-module.ocmod.zip) с помощью _Модули_ -> _Установка расширений_
+* Загрузите файл модуля [opencart-begateway-payment-module.zip](https://github.com/beGateway/opencart-payment-module/raw/opencart-1.5/opencart-begateway-payment-module.zip) с помощью _Модули_ -> _Установка расширений_
 * Активируйте модуль beGateway в модулях оплаты (_Модули_ -> _Оплата_)
 * Задайте в настройках модуля beGateway:
   * Id магазина
@@ -71,7 +75,7 @@ Issue pull requests or send feature requests.
 
 ### Примечания
 
-Разработано и протестировано с OpenCart v.2.0.1.1
+Разработано и протестировано с OpenCart v.1.5.6.4
 
 Требуется PHP 5+
 
