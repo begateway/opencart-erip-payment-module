@@ -8,7 +8,7 @@
 
 * Backup your webstore and database
 * Upload the module file [opencart-begateway-payment-module.zip](https://github.com/beGateway/opencart-payment-module/raw/opencart-1.5/opencart-begateway-payment-module.zip) via _Extensions_ -> _Extension Installer_
-* Activate the module in payment extensions (_Extensions_ -> _Payments_)
+* Upload contains of the archive to root directory of your OpenCart installation
 * Configure the module settings:
   * Shop Id
   * Shop secret key
@@ -63,7 +63,7 @@ Issue pull requests or send feature requests.
 
 * Создайте резервную копию вашего магазина и базы данных
 * Загрузите файл модуля [opencart-begateway-payment-module.zip](https://github.com/beGateway/opencart-payment-module/raw/opencart-1.5/opencart-begateway-payment-module.zip) с помощью _Модули_ -> _Установка расширений_
-* Активируйте модуль beGateway в модулях оплаты (_Модули_ -> _Оплата_)
+* Загрузите содержимое архива в вашу установленную копию OpenCart
 * Задайте в настройках модуля beGateway:
   * Id магазина
   * Ключ магазина
