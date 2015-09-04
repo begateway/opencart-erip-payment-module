@@ -4,17 +4,18 @@ class ControllerPaymentBegateway extends Controller {
     $this->language->load('payment/begateway');
     $this->load->model('checkout/order');
 
-    $data['action'] = 'https://' . $this->config->get('begateway_domain_payment_page') . '/checkout';
-    $data['button_confirm'] = $this->language->get('button_confirm');
-    $data['token'] = $this->generateToken();
-    $data['token_error'] = $this->language->get('token_error');
-    $data['order_id'] = $this->session->data['order_id'];
+    $this->data['action'] = 'https://' . $this->config->get('begateway_domain_payment_page') . '/checkout';
+    $this->data['button_confirm'] = $this->language->get('button_confirm');
+    $this->data['token'] = $this->generateToken();
+    $this->data['token_error'] = $this->language->get('token_error');
+    $this->data['order_id'] = $this->session->data['order_id'];
 
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/begateway.tpl')) {
-      return $this->load->view($this->config->get('config_template') . '/template/payment/begateway.tpl', $data);
+      $this->template = $this->config->get('config_template') . '/template/payment/begateway.tpl';
     } else {
-      return $this->load->view('default/template/payment/begateway.tpl', $data);
+      $this->template = 'default/template/payment/begateway.tpl';
     }
+    $this->render();
   }
 
   public function generateToken(){
@@ -132,7 +133,7 @@ class ControllerPaymentBegateway extends Controller {
     $this->load->model('checkout/order');
     $order_info = $this->model_checkout_order->getOrder($order_id);
 
-    $this->response->redirect($this->url->link('checkout/success', '', 'SSL'));
+    $this->redirect($this->url->link('checkout/success', '', 'SSL'));
   }
 
   public function callback1() {
@@ -142,14 +143,11 @@ class ControllerPaymentBegateway extends Controller {
     $post_array = json_decode($postData, true);
 
     $order_id = $post_array['transaction']['tracking_id'];
-
-    $order_id = $post_array['transaction']['tracking_id'];
     $status = $post_array['transaction']['status'];
 
     $transaction_id = $post_array['transaction']['uid'];
     $transaction_message = $post_array['transaction']['message'];
-    $three_d = $post_array['transaction']['three_d_secure_verification']['pa_status'];
-    if (isset($three_d)) {
+    if (isset($post_array['transaction']['three_d_secure_verification']['pa_status'])) {
       $three_d = '3-D Secure: ' . $three_d . '.';
     } else {
       $three_d = '';
@@ -162,13 +160,17 @@ class ControllerPaymentBegateway extends Controller {
     $order_info = $this->model_checkout_order->getOrder($order_id);
 
     if ($order_info) {
-      $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('config_order_status_id'));
+      $this->model_checkout_order->confirm($order_id, $this->config->get('config_order_status_id'));
 
       if(isset($status) && $status == 'successful'){
-        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('begateway_completed_status_id'), "UID: $transaction_id. $three_d Processor message: $transaction_message", true);
+        $completed_status_id = $this->config->get('begateway_completed_status_id');
+        $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = " . (int)$order_id . ", order_status_id = '".$completed_status_id."', notify = 0, comment = 'UID: " . $transaction_id.'. '. $thred_d . " Processor message: ".$transaction_message  ."', date_added = NOW()");
+          $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$completed_status_id . ", date_modified = NOW() WHERE order_id = " . (int)$order_info['order_id']);
       }
-      if(isset($status) && ($status == 'failed'|| $status == 'incomplete' )){
-        $this->model_checkout_order->addOrderHistory($order_id, $this->config->get('begateway_failed_status_id'), "UID: $transaction_id. Fail reason: $transaction_message", true);
+      if(isset($status) && ($status == 'failed' )){
+        $failed_status_id = $this->config->get('begateway_failed_status_id');
+        $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = " . (int)$order_id . ", order_status_id = '".$failed_status_id."', notify = 0, comment = 'UID: " . $transaction_id.'. '. $three_d . " Fail reason: ".$transaction_message  ." ', date_added = NOW()");
+          $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$failed_status_id . ", date_modified = NOW() WHERE order_id = " . (int)$order_info['order_id']);
       }
     }
   }
