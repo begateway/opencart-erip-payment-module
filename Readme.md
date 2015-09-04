@@ -15,7 +15,7 @@
   * Payment gateway domain
   * Payment page domain
   * Order statuses for successfuly processed payment and for failed one
-  * Enabled the module
+  * Enable the module
   * And optionally setup sort order id if you want to move the payment
     option higher level in payment method list
 
