@@ -26,16 +26,22 @@ class ControllerPaymentBegateway extends Controller {
     $orderAmount = (float)$orderAmount * pow(10,(int)$this->currency->getDecimalPlace($order_info['currency_code']));
     $orderAmount = (int)$orderAmount;
 
-    $customer_array =  array ( 'address' => $order_info['payment_address_1'],
+    $customer_array =  array (
+      'address' => $order_info['payment_address_1'],
       'first_name' => $order_info['payment_firstname'],
       'last_name' => $order_info['payment_lastname'],
       'country' => $order_info['payment_iso_code_2'],
       'city'=> $order_info['payment_city'],
       'phone' =>$order_info['telephone'],
       'email'=> $order_info['email'],
-      'zip' => $order_info['payment_postcode'],
-      'ip' => $this->request->server['REMOTE_ADDR']);
+      'zip' => $order_info['payment_postcode']
+    );
 
+    foreach ($customer_array as $k => $v) {
+      if (strlen($v) == 0)
+        unset($customer_array[$k]);
+    }
+    
     if (in_array($order_info['payment_iso_code_2'], array('US','CA'))) {
       $customer_array['state'] = $order_info['payment_zone_code'];
     }
@@ -164,7 +170,7 @@ class ControllerPaymentBegateway extends Controller {
 
       if(isset($status) && $status == 'successful'){
         $completed_status_id = $this->config->get('begateway_completed_status_id');
-        $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = " . (int)$order_id . ", order_status_id = '".$completed_status_id."', notify = 0, comment = 'UID: " . $transaction_id.'. '. $thred_d . " Processor message: ".$transaction_message  ."', date_added = NOW()");
+        $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = " . (int)$order_id . ", order_status_id = '".$completed_status_id."', notify = 0, comment = 'UID: " . $transaction_id.'. '. $three_d . " Processor message: ".$transaction_message  ."', date_added = NOW()");
           $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$completed_status_id . ", date_modified = NOW() WHERE order_id = " . (int)$order_info['order_id']);
       }
       if(isset($status) && ($status == 'failed' )){
