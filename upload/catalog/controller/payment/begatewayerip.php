@@ -4,21 +4,8 @@ class ControllerPaymentBegatewayErip extends Controller {
   public function index() {
     $this->language->load('payment/begatewayerip');
     $this->load->model('checkout/order');
-
-    $token = $this->generateToken();
-    $this->data['token_error'] = $this->language->get('token_error');
-    $this->data['token'] = $token;
-
-    if ($token != false && isset($token['transaction'])) {
-      $this->data['erip_instruction'] = sprintf($this->language->get('text_erip_instruction'),
-        $token['transaction']['order_id'],
-        implode(' ', $token['transaction']['erip']['instruction']),
-        $token['transaction']['order_id']
-      );
-      $this->data['link_next'] = $this->url->link('payment/begateway/callback', '', 'SSL');
-      $this->data['button_next'] = $this->language->get('button_next');
-
-    }
+    $this->data['text_wait'] = $this->language->get('text_wait');
+    $this->data['button_confirm'] = $this->language->get('button_confirm');
 
     if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/begatewayerip.tpl')) {
       $this->template = $this->config->get('config_template') . '/template/payment/begatewayerip.tpl';
@@ -32,26 +19,25 @@ class ControllerPaymentBegatewayErip extends Controller {
     $this->language->load('payment/begatewayerip');
     $this->load->model('checkout/order');
 
-    $token = $this->generateToken();
-    $this->data['token_error'] = $this->language->get('token_error');
-    $this->data['token'] = $token;
+    $json = array();
+    $json['text_thankyou'] = $this->language->get('text_thankyou');
+    $json['success_url'] = $this->url->link('checkout/success', '', 'SSL');
+    $json['button_continue'] = $this->language->get('button_continue');
 
-    if ($token != false && isset($token['transaction'])) {
-      $this->data['erip_instruction'] = sprintf($this->language->get('text_erip_instruction'),
+    $token = $this->generateToken();
+
+    if ($token == false || !isset($token['transaction'])) {
+      $json['error'] = $this->language->get('token_error');
+    } else {
+      $json['instruction'] = sprintf($this->language->get('text_erip_instruction'),
         $token['transaction']['order_id'],
         implode(' ', $token['transaction']['erip']['instruction']),
         $token['transaction']['order_id']
       );
-      $this->data['link_next'] = $this->url->link('payment/begateway/callback', '', 'SSL');
-      $this->data['button_next'] = $this->language->get('button_next');
+      $json['instruction'] = str_replace(PHP_EOL, "<br>", $json['instruction']);
     }
 
-    if (file_exists(DIR_TEMPLATE . $this->config->get('config_template') . '/template/payment/begatewayerip.tpl')) {
-      $this->template = $this->config->get('config_template') . '/template/payment/begatewayerip.tpl';
-    } else {
-      $this->template = 'default/template/payment/begatewayerip.tpl';
-    }
-    $this->response->setOutput($this->render());
+    $this->response->setOutput(json_encode($json));
   }
 
   public function generateToken(){

@@ -1,12 +1,12 @@
 <?php
 // Heading
-$_['heading_title']          = 'АИС Расчёт (ЕРИП)';
+$_['heading_title']          = 'Расчёт (ЕРИП)';
 $_['text_edit']              = 'Изменить настройки';
 
 // Text
 $_['text_payment']        = 'Оплата';
 $_['text_success']        = 'Вы успешно изменили настройки модуля';
-$_['text_raschet']      = '<img src="view/image/payment/raschet.png" alt="" title="" style="border: 1px solid #EEEEEE;" />';
+$_['text_begatewayerip']  = '<img src="view/image/payment/raschet.png" alt="Расчёт (ЕРИП)" title="Расчёт (ЕРИП)" style="border: 1px solid #EEEEEE;" />';
 
 // Entry
 $_['entry_order_status']                = 'Статус заказа после оплаты';
@@ -28,8 +28,8 @@ $_['entry_encryptionkey']   = 'Ключ магазина';
 $_['entry_encryptionkey_help']  = 'Вы можете найти ключ магазина в вашем личном кабинете на странице настроек магазина';
 $_['entry_domain_api']      = 'Домен API';
 $_['entry_domain_api_help'] = 'Домен API, полученный от вашей платежной компании';
-$_['entry_service_no'] = 'Код услуги ЕРИП'
-$_['entry_service_no_help'] = 'Код услуги поставщика услуги, заданной в анкете при регистрации в ЕРИП'
+$_['entry_service_no'] = 'Код услуги ЕРИП';
+$_['entry_service_no_help'] = 'Код услуги поставщика услуги, заданной в анкете при регистрации в ЕРИП';
 
 $_['text_service_info'] = 'Оплата заказа номер %s';
 

@@ -1,24 +1,22 @@
 <?php
 $_['text_title'] = 'ERIP';
 $_['token_error'] = 'Error to create ERIP payment order. Contact the store owner';
-$_['button_next'] = 'Next >>';
+$_['text_wait']   = 'Please wait!';
+$_['text_thankyou'] = 'Thank you for your order';
 $_['text_erip_instruction'] = '
-Спасибо за заказ.
+Here is an instruction how to pay your order <strong>%s</strong> via ERIP.
 
-Ниже содержится инструкция как оплатить заказ <strong>%s</strong> через систему Расчёт (ЕРИП).
+To make a payment you need:
 
-Если Вы осуществляете платеж в кассе банка, пожалуйста, сообщите кассиру о необходимости проведения платежа через систему ”Расчет“ (ЕРИП).
+1.​ Select the ERIP tree
 
-Для проведения платежа необходимо:
+2.​ Select tabs: <strong>%s</strong>
 
-1.​ Выбрать пункт Система "Расчет” (ЕРИП)
+3.​ Enter order number <strong>%s</strong>
 
-2.​ Выбрать последовательно вкладки: <strong>%s</strong>
+4.​ Check payment details
 
-3.​ Ввести номер заказа <strong>%s</strong>
+5.​ Complete payment
 
-4.​ Проверить корректность информации
-
-5.​ Совершить платеж.
 ';
 ?>
