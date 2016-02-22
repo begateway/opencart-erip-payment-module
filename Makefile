@@ -1,3 +1,3 @@
 all :
-	if [[ -e opencart-begateway-payment-module.zip ]]; then rm opencart-begateway-payment-module.zip; fi
-	cd upload && zip -r ../opencart-begateway-payment-module.zip admin catalog
+	if [[ -e opencart-erip-payment-module.zip ]]; then rm opencart-erip-payment-module.zip; fi
+	cd upload && zip -r ../opencart-erip-payment-module.zip admin catalog
