@@ -3,28 +3,28 @@
   <div class="right"><input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="button" /></div>
 </div>
 <script type="text/javascript"><!--
-$('#button-confirm').bind('click', function() {
-	$.ajax({
+jQuery('#button-confirm').bind('click', function() {
+	jQuery.ajax({
 		url: 'index.php?route=payment/begatewayerip/send',
 		type: 'post',
     dataType: 'json',
 		beforeSend: function() {
-			$('#button-confirm').attr('disabled', true);
-      $('#instruction').empty();
-			$('#instruction').before('<div class="attention" id="erip-progress"><img src="catalog/view/theme/default/image/loading.gif" alt="" /> <?php echo $text_wait; ?></div>');
+			jQuery('#button-confirm').attr('disabled', true);
+      jQuery('#instruction').empty();
+			jQuery('#instruction').before('<div class="attention" id="erip-progress"><img src="catalog/view/theme/default/image/loading.gif" alt="" /> <?php echo $text_wait; ?></div>');
 		},
 		complete: function() {
-			$('#button-confirm').attr('disabled', false);
-			$('#erip-progress').remove();
+			jQuery('#button-confirm').attr('disabled', false);
+			jQuery('#erip-progress').remove();
 		},
 		success: function(json) {
       if (json['error']) {
-        $('#instruction').append('<div class="attention">' + json['error'] + '</div>');
+        jQuery('#instruction').append('<div class="attention">' + json['error'] + '</div>');
       } else {
-        $('#instruction').append('<div class="success">' + json['text_thankyou'] + '</div>' +
+        jQuery('#instruction').append('<div class="success">' + json['text_thankyou'] + '</div>' +
           '<div>' + json['instruction'] + '</div>');
-        $('#checkout-success .right').empty();
-        $('#checkout-success .right').append('<input type="button" class="button" onclick="location.href=\'' + json['success_url'] + '\';" value="' + json['button_continue'] + '" />');
+        jQuery('#checkout-success .right').empty();
+        jQuery('#checkout-success .right').append('<input type="button" class="button" onclick="location.href=\'' + json['success_url'] + '\';" value="' + json['button_continue'] + '" />');
       }
 		}
 	});
