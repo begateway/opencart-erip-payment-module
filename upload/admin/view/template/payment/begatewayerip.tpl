@@ -46,7 +46,7 @@
               <?php } ?></td>
           </tr>
           <tr>
-            <td><?php echo $entry_order_status_completed_text; ?></td>
+            <td><?php echo $entry_order_status; ?></td>
             <td><select name="begatewayerip_completed_status_id">
               <?php foreach ($order_statuses as $order_status) { ?>
               <?php if ($order_status['order_status_id'] == $begatewayerip_completed_status_id) { ?>

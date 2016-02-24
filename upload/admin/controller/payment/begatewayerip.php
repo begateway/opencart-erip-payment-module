@@ -28,12 +28,6 @@ class ControllerPaymentBegatewayErip extends Controller {
 
     $this->data['entry_email'] = $this->language->get('entry_email');
     $this->data['entry_order_status'] = $this->language->get('entry_order_status');
-    $this->data['entry_order_status_completed_text'] = $this->language->get('entry_order_status_completed_text');
-    $this->data['entry_order_status_pending'] = $this->language->get('entry_order_status_pending');
-    $this->data['entry_order_status_canceled'] = $this->language->get('entry_order_status_canceled');
-    $this->data['entry_order_status_failed'] = $this->language->get('entry_order_status_failed');
-    $this->data['entry_order_status_failed_text'] = $this->language->get('entry_order_status_failed_text');
-    $this->data['entry_order_status_processing'] = $this->language->get('entry_order_status_processing');
     $this->data['entry_geo_zone'] = $this->language->get('entry_geo_zone');
     $this->data['entry_status'] = $this->language->get('entry_status');
     $this->data['entry_sort_order'] = $this->language->get('entry_sort_order');

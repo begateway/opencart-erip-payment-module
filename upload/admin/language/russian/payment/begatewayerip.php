@@ -10,13 +10,6 @@ $_['text_begatewayerip']  = '<img src="view/image/payment/raschet.png" alt="Ра
 
 // Entry
 $_['entry_order_status']                = 'Статус заказа после оплаты';
-$_['entry_order_status_completed_text'] = 'Статус заказа (успешная оплата)';
-$_['entry_order_status_failed_text']    = 'Статус заказа (неуспешная оплата)';
-$_['entry_order_status_pending']        = 'Order Status Pending';
-$_['entry_order_status_expiredate']     = 'Order Status Expiredate';
-$_['entry_order_status_canceled']       = 'Order Status Canceled';
-$_['entry_order_status_failed']         = 'Order Status Failed';
-$_['entry_order_status_processing']     = 'Order Status Processing';
 
 $_['entry_geo_zone']         = 'Географическая зона';
 $_['entry_status']           = 'Статус';

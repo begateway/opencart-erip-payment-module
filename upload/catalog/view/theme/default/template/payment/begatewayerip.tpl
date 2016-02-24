@@ -3,7 +3,8 @@
   <div class="right"><input type="button" value="<?php echo $button_confirm; ?>" id="button-confirm" class="button" /></div>
 </div>
 <script type="text/javascript"><!--
-jQuery('#button-confirm').bind('click', function() {
+
+var ajax_handler = function() {
 	jQuery.ajax({
 		url: 'index.php?route=payment/begatewayerip/send',
 		type: 'post',
@@ -23,10 +24,13 @@ jQuery('#button-confirm').bind('click', function() {
       } else {
         jQuery('#instruction').append('<div class="success">' + json['text_thankyou'] + '</div>' +
           '<div>' + json['instruction'] + '</div>');
-        jQuery('#button-confirm').attr('onclick', "location.href='" + json['success_url'] + "'");
+        jQuery('#button-confirm').unbind('click');
+        jQuery('#button-confirm').bind('click', function() { location.href = json['success_url'] } );
         jQuery('#button-confirm').attr('value', json['button_continue']);
       }
 		}
 	});
-});
+}
+
+jQuery('#button-confirm').bind('click', ajax_handler);
 //--></script>

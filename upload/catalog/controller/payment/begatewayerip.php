@@ -17,7 +17,6 @@ class ControllerPaymentBegatewayErip extends Controller {
 
   public function send() {
     $this->language->load('payment/begatewayerip');
-    $this->load->model('checkout/order');
 
     $json = array();
     $json['text_thankyou'] = $this->language->get('text_thankyou');
@@ -35,6 +34,7 @@ class ControllerPaymentBegatewayErip extends Controller {
         $token['transaction']['order_id']
       );
       $json['instruction'] = str_replace(PHP_EOL, "<br>", $json['instruction']);
+      $this->model_checkout_order->confirm($this->session->data['order_id'], $this->config->get('config_order_status_id'));
     }
 
     $this->response->setOutput(json_encode($json));
@@ -47,7 +47,7 @@ class ControllerPaymentBegatewayErip extends Controller {
     $orderAmount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
     $orderAmount = (float)$orderAmount * pow(10,(int)$this->currency->getDecimalPlace($order_info['currency_code']));
     $orderAmount = (int)round($orderAmount);
-    $callback_url = $this->url->link('payment/begatewayerip/callback1', '', 'SSL');
+    $callback_url = $this->url->link('payment/begatewayerip/callback', '', 'SSL');
     $callback_url = str_replace('carts.local', 'webhook.begateway.com:8443', $callback_url);
     $description = sprintf($this->language->get('text_service_info'), $order_info['order_id']);
 
@@ -95,7 +95,7 @@ class ControllerPaymentBegatewayErip extends Controller {
     $response = curl_exec($curl);
 
     if (!$response) {
-      $this->log->write('Payment token request failed: ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
+      $this->log->write('ERIP request failed: ' . curl_error($curl) . '(' . curl_errno($curl) . ')');
       curl_close($curl);
       return false;
     }
@@ -105,12 +105,12 @@ class ControllerPaymentBegatewayErip extends Controller {
     $token = json_decode($response,true);
 
     if ($token == NULL) {
-      $this->log->write("Payment token response parse error: $response");
+      $this->log->write("ERIP response parse error: $response");
       return false;
     }
 
     if (isset($token['errors'])) {
-      $this->log->write("Payment token request errors: $response");
+      $this->log->write("ERIP request errors: $response");
       return false;
     }
 
@@ -123,7 +123,9 @@ class ControllerPaymentBegatewayErip extends Controller {
     }
   }
 
-  public function callback1() {
+  public function callback() {
+
+    $this->language->load('payment/begatewayerip');
 
     $postData =  (string)file_get_contents("php://input");
 
@@ -140,16 +142,26 @@ class ControllerPaymentBegatewayErip extends Controller {
     $this->load->model('checkout/order');
 
     $order_info = $this->model_checkout_order->getOrder($order_id);
-
-    if ($order_info) {
-      $this->model_checkout_order->confirm($order_id, $this->config->get('config_order_status_id'));
-
+    if ($this->is_authorized() && $order_info) {
       if(isset($status) && $status == 'successful'){
-        $completed_status_id = $this->config->get('begatewayerip_completed_status_id');
-        $this->db->query("INSERT INTO " . DB_PREFIX . "order_history SET order_id = " . (int)$order_id . ", order_status_id = '".$completed_status_id."', notify = 0, comment = 'UID: " . $transaction_id.'. '. $three_d . " Processor message: ".$transaction_message  ."', date_added = NOW()");
-          $this->db->query("UPDATE `" . DB_PREFIX . "order` SET order_status_id = " . (int)$completed_status_id . ", date_modified = NOW() WHERE order_id = " . (int)$order_info['order_id']);
+        $message = $this->language->get('text_transaction_id') . ' ' . $transaction_id;
+        $message .= ' ';
+        $message .= $this->language->get('text_processor_message') . ' ' . $transaction_message;
+
+        $this->model_checkout_order->update((int)$order_id, $this->config->get('begatewayerip_completed_status_id'), $message, false);
       }
     }
+  }
+
+  protected function is_authorized() {
+    $username=$this->config->get('begatewayerip_companyid');
+    $password=$this->config->get('begatewayerip_encryptionkey');
+    if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
+      return $_SERVER['PHP_AUTH_USER'] == $username &&
+             $_SERVER['PHP_AUTH_PW'] == $password;
+    }
+
+    return false;
   }
 }
 ?>

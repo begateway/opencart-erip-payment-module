@@ -10,13 +10,6 @@ $_['text_begatewayerip']  = '<img src="view/image/payment/raschet.png" alt="ERIP
 
 // Entry
 $_['entry_order_status']                = 'Order Status Completed';
-$_['entry_order_status_completed_text'] = 'Completed Status';
-$_['entry_order_status_failed_text']    = 'Failed Status';
-$_['entry_order_status_pending']        = 'Order Status Pending';
-$_['entry_order_status_expiredate']     = 'Order Status Expiredate';
-$_['entry_order_status_canceled']       = 'Order Status Canceled';
-$_['entry_order_status_failed']         = 'Order Status Failed';
-$_['entry_order_status_processing']     = 'Order Status Processing';
 
 $_['entry_geo_zone']         = 'Geo Zone';
 $_['entry_status']           = 'Status';
