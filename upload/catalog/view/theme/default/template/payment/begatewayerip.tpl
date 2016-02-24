@@ -23,8 +23,8 @@ jQuery('#button-confirm').bind('click', function() {
       } else {
         jQuery('#instruction').append('<div class="success">' + json['text_thankyou'] + '</div>' +
           '<div>' + json['instruction'] + '</div>');
-        jQuery('#checkout-success .right').empty();
-        jQuery('#checkout-success .right').append('<input type="button" class="button" onclick="location.href=\'' + json['success_url'] + '\';" value="' + json['button_continue'] + '" />');
+        jQuery('#button-confirm').attr('onclick', "location.href='" + json['success_url'] + "'");
+        jQuery('#button-confirm').attr('value', json['button_continue']);
       }
 		}
 	});
