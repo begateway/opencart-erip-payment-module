@@ -2,15 +2,10 @@
 
 Данный модуль обеспечивает информационное взаимодействие между вашим интернет-магазином, системой Расчёт (ЕРИП) и сервисом платежей [bePaid.by](https://bepaid.by)
 
-<!---
-[comment]: Модуль для OpenCart 2 находится [здесь](https://github.com/beGateway/opencart-erip-payment-module/)
---->
-
-
 ### Установка
 
 * Создайте резервную копию вашего магазина и базы данных
-* Загрузите файл модуля [opencart-erip-payment-module.zip](https://github.com/beGateway/opencart-erip-payment-module/raw/opencart-1.5/opencart-erip-payment-module.zip) с помощью _Модули_ -> _Установка расширений_
+* Загрузите файл модуля [opencart-erip-payment-module.zip](https://github.com/beGateway/opencart-erip-payment-module/raw/master/opencart-erip-payment-module.zip) с помощью _Модули_ -> _Установка расширений_
 * Загрузите содержимое архива в вашу установленную копию OpenCart
 * Задайте в настройках модуля Расчёт (ЕРИП):
   * Id магазина
