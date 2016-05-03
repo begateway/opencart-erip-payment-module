@@ -24,8 +24,6 @@ $_['entry_domain_api_help'] = 'API domain received from your payment processor';
 $_['entry_service_no'] = 'ERIP service code';
 $_['entry_service_no_help'] = 'Serice code of service provider set in ERIP';
 
-$_['text_service_info'] = 'Order %s payment';
-
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify the payment module!';
 $_['error_companyid']       = 'Shop Id required!';
