@@ -46,7 +46,7 @@ class ControllerPaymentBegatewayErip extends Controller {
     $order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
     $orderAmount = $this->currency->format($order_info['total'], $order_info['currency_code'], $order_info['currency_value'], false);
     $orderAmount = (float)$orderAmount * pow(10,(int)$this->currency->getDecimalPlace($order_info['currency_code']));
-    $orderAmount = (int)round($orderAmount);
+    $orderAmount = intval(strval($orderAmount));
     $callback_url = $this->url->link('payment/begatewayerip/callback', '', 'SSL');
     $callback_url = str_replace('carts.local', 'webhook.begateway.com:8443', $callback_url);
     $description = sprintf($this->language->get('text_service_info'), $order_info['order_id']);
