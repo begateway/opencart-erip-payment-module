@@ -131,6 +131,8 @@ class ControllerPaymentBegatewayErip extends Controller {
 
     $post_array = json_decode($postData, true);
 
+    $this->_set_auth_data();
+
     $order_id = $post_array['transaction']['tracking_id'];
     $status = $post_array['transaction']['status'];
 
@@ -162,6 +164,13 @@ class ControllerPaymentBegatewayErip extends Controller {
     }
 
     return false;
+  }
+
+  protected function _set_auth_data() {
+    if(preg_match('/Basic+(.*)$/i', $_SERVER['REDIRECT_HTTP_AUTHORIZATION'], $matches)) {
+      $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+      list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':' , base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
+    }
   }
 }
 ?>
