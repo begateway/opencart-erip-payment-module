@@ -51,11 +51,15 @@ class ControllerPaymentBegatewayErip extends Controller {
     $callback_url = str_replace('carts.local', 'webhook.begateway.com:8443', $callback_url);
     $description = sprintf($this->language->get('text_service_info'), $order_info['order_id']);
 
+    $expired_at = intval($this->config->get('begatewayerip_erip_expired_at'));
+    $expired_at = date("Y-m-d", ($expired_at+1)*24*3600 + time()) . "T00:00:00+03:00";
+
     $order_array = array (
       'currency'=> $order_info['currency_code'],
       'amount' => $orderAmount,
       'description' => $description,
       'order_id' => $order_info['order_id'],
+      'expired_at' => $expired_at,
       'email' => $order_info['email'],
       'ip' => $_SERVER['REMOTE_ADDR'],
       'notification_url'=> $callback_url,
