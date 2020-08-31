@@ -39,6 +39,8 @@ class ControllerPaymentBegatewayErip extends Controller {
     $this->data['entry_domain_api_help'] = $this->language->get('entry_domain_api_help');
     $this->data['entry_service_no'] = $this->language->get('entry_service_no');
     $this->data['entry_service_no_help'] = $this->language->get('entry_service_no_help');
+    $this->data['entry_expired_at'] = $this->language->get('entry_expired_at');
+    $this->data['entry_expired_at_help'] = $this->language->get('entry_expired_at_help');
 
     $this->data['button_save'] = $this->language->get('button_save');
     $this->data['button_cancel'] = $this->language->get('button_cancel');
@@ -128,6 +130,15 @@ class ControllerPaymentBegatewayErip extends Controller {
       $this->data['begatewayerip_completed_status_id'] = $this->request->post['begatewayerip_completed_status_id'];
     } else {
       $this->data['begatewayerip_completed_status_id'] = $this->config->get('begatewayerip_completed_status_id');
+    }
+
+    if (isset($this->request->post['begatewayerip_erip_expired_at'])) {
+      $this->data['begatewayerip_erip_expired_at'] = $this->request->post['begatewayerip_erip_expired_at'];
+    } else {
+      $this->data['begatewayerip_erip_expired_at'] = $this->config->get('begatewayerip_erip_expired_at');
+      if (!isset($this->data['begatewayerip_erip_expired_at'])) {
+        $this->data['begatewayerip_erip_expired_at'] = 3;
+      }
     }
 
     $this->load->model('localisation/order_status');
