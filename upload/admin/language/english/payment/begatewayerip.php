@@ -23,12 +23,13 @@ $_['entry_domain_api']      = 'API domain';
 $_['entry_domain_api_help'] = 'API domain received from your payment processor';
 $_['entry_service_no'] = 'ERIP service code';
 $_['entry_service_no_help'] = 'Serice code of service provider set in ERIP';
+$_['entry_expired_at'] = 'Valid days';
+$_['entry_expired_at_help'] = 'Enter number of days during which the order can be paid for';
 
 // Error
 $_['error_permission']      = 'Warning: You do not have permission to modify the payment module!';
 $_['error_companyid']       = 'Shop Id required!';
 $_['error_encryptionkey']    = 'Shop secret key required!';
-$_['error_domain_payment_page']    = 'Payment page domain required!';
-$_['error_domain_payment_gateway'] = 'Payment gateway domain required!';
-$_['error_service_no']    = 'ERIP service code is required!';
+$_['error_domain_api']    = 'API domain required!';
+$_['error_service_no']    = 'ERIP service code required!';
 ?>

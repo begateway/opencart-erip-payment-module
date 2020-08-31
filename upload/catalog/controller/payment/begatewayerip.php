@@ -51,11 +51,15 @@ class ControllerPaymentBegatewayErip extends Controller {
     $callback_url = str_replace('carts.local', 'webhook.begateway.com:8443', $callback_url);
     $description = sprintf($this->language->get('text_service_info'), $order_info['order_id']);
 
+    $expired_at = intval($this->config->get('begatewayerip_erip_expired_at'));
+    $expired_at = date("Y-m-d", ($expired_at+1)*24*3600 + time()) . "T00:00:00+03:00";
+
     $order_array = array (
       'currency'=> $order_info['currency_code'],
       'amount' => $orderAmount,
       'description' => $description,
       'order_id' => $order_info['order_id'],
+      'expired_at' => $expired_at,
       'email' => $order_info['email'],
       'ip' => $_SERVER['REMOTE_ADDR'],
       'notification_url'=> $callback_url,
@@ -131,6 +135,8 @@ class ControllerPaymentBegatewayErip extends Controller {
 
     $post_array = json_decode($postData, true);
 
+    $this->_set_auth_data();
+
     $order_id = $post_array['transaction']['tracking_id'];
     $status = $post_array['transaction']['status'];
 
@@ -162,6 +168,13 @@ class ControllerPaymentBegatewayErip extends Controller {
     }
 
     return false;
+  }
+
+  protected function _set_auth_data() {
+    if(preg_match('/Basic+(.*)$/i', $_SERVER['REDIRECT_HTTP_AUTHORIZATION'], $matches)) {
+      $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+      list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':' , base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6)));
+    }
   }
 }
 ?>

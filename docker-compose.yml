@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  opencart: &opencart
+    build: &build
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    tty: true
+    ports:
+      - '80:80'
+    volumes:
+      - ./upload/catalog/language/russian/payment/begatewayerip.php:/var/www/html/catalog/language/russian/payment/begatewayerip.php
+      - ./upload/catalog/language/english/payment/begatewayerip.php:/var/www/html/catalog/language/english/payment/begatewayerip.php
+      - ./upload/catalog/controller/payment/begatewayerip.php:/var/www/html/catalog/controller/payment/begatewayerip.php
+      - ./upload/catalog/model/payment/begatewayerip.php:/var/www/html/catalog/model/payment/begatewayerip.php
+      - ./upload/catalog/view/theme/default/template/payment/begatewayerip.tpl:/var/www/html/catalog/view/theme/default/template/payment/begatewayerip.tpl
+      - ./upload/admin/language/russian/payment/begatewayerip.php:/var/www/html/admin/language/russian/payment/begatewayerip.php
+      - ./upload/admin/language/english/payment/begatewayerip.php:/var/www/html/admin/language/english/payment/begatewayerip.php
+      - ./upload/admin/controller/payment/begatewayerip.php:/var/www/html/admin/controller/payment/begatewayerip.php
+      - ./upload/admin/view/template/payment/begatewayerip.tpl:/var/www/html/admin/view/template/payment/begatewayerip.tpl
+      - ./upload/admin/view/image/payment/raschet.png:/var/www/html/admin/view/image/payment/raschet.png
+      - /var/www/html
+    depends_on:
+      - mysql
+
+  opencart:
+    build:
+      args:
+        opencart_version: "1.5.6.4"
+      <<: *build
+    <<: *opencart
+
+  mysql:
+    image: mysql:5.5
+    restart: always
+    volumes:
+      - /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: opencart

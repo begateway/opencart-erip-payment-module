@@ -17,7 +17,7 @@
       <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form">
         <table class="form">
           <tr>
-	          <td><?php echo $entry_companyid; ?></td>
+	          <td><?php echo $entry_companyid; ?><br><span class="help"><?php echo $entry_companyid_help; ?></span></td>
 	          <td><input type="text" name="begatewayerip_companyid" value="<?php echo $begatewayerip_companyid; ?>" size="15" />
               <?php if ($error_companyid) { ?>
               <span class="error"><?php echo $error_companyid; ?></span>
@@ -25,25 +25,30 @@
 
           </tr>
           <tr>
-	          <td><?php echo $entry_encryptionkey; ?></td>
+	          <td><?php echo $entry_encryptionkey; ?><br><span class="help"><?php echo $entry_encryptionkey_help; ?></span></td>
 	          <td><input type="text" name="begatewayerip_encryptionkey" value="<?php echo $begatewayerip_encryptionkey; ?>" size="50" />
               <?php if ($error_encryptionkey) { ?>
               <span class="error"><?php echo $error_encryptionkey; ?></span>
               <?php } ?></td>
           </tr>
           <tr>
-            <td><?php echo $entry_domain_api; ?></td>
+            <td><?php echo $entry_domain_api; ?><br><span class="help"><?php echo $entry_domain_api_help; ?></span></td>
             <td><input type="text" name="begatewayerip_domain_api" value="<?php echo $begatewayerip_domain_api; ?>" size="50" />
               <?php if ($error_domain_api) { ?>
               <span class="error"><?php echo $error_domain_api; ?></span>
               <?php } ?></td>
           </tr>
           <tr>
-            <td><?php echo $entry_service_no; ?></td>
+            <td><?php echo $entry_service_no; ?><br><span class="help"><?php echo $entry_service_no_help; ?></span></td>
             <td><input type="text" name="begatewayerip_service_no" value="<?php echo $begatewayerip_service_no; ?>" size="50" />
               <?php if ($error_service_no) { ?>
               <span class="error"><?php echo $error_service_no; ?></span>
               <?php } ?></td>
+          </tr>
+          <tr>
+            <td><?php echo $entry_expired_at; ?><br><span class="help"><?php echo $entry_expired_at_help; ?></span></td>
+            <td><input type="text" name="begatewayerip_erip_expired_at" value="<?php echo $begatewayerip_erip_expired_at; ?>" size="50" />
+            </td>
           </tr>
           <tr>
             <td><?php echo $entry_order_status; ?></td>
